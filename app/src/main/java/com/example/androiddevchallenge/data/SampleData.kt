@@ -31,7 +31,7 @@ private val americanBulldogInfo = DogInformation(
 
 private val chihuahuaInfo = DogInformation(
     kind = "Chihuahua",
-    description = "The Chihuahua (/tʃɪˈwɑːwə, -wɑː, -ˈwaʊ.ə/ (About this soundlisten);[1] Spanish: chihuahueño) is one of the smallest breeds of dog,[2] and is named after the Mexican state of Chihuahua.",
+    description = "The Chihuahua (/tʃɪˈwɑːwə, -wɑː, -ˈwaʊ.ə/ (About this soundlisten); Spanish: chihuahueño) is one of the smallest breeds of dog, and is named after the Mexican state of Chihuahua.",
     stats = Stats(
         group = DogGroup.COMPANION_DOG,
         height = 6 to 10,
@@ -53,9 +53,9 @@ private val bichonFriseInfo = DogInformation(
     )
 )
 
-private val koreanJindoInfo =  DogInformation(
+private val koreanJindoInfo = DogInformation(
     kind = "Korean Jindo",
-    description = "The Korean Jindo (진돗개) is a breed of hunting dog that originated on Jindo Island in South Korea. Brought to the United States with South Korean immigrants, it is celebrated in its native land for its strong loyalty and bravery. The Jindo breed became recognized by the United Kennel Club on January 1, 1998[1] and by the Fédération Cynologique Internationale in 2005.[2][3]",
+    description = "The Korean Jindo (진돗개) is a breed of hunting dog that originated on Jindo Island in South Korea. Brought to the United States with South Korean immigrants, it is celebrated in its native land for its strong loyalty and bravery. The Jindo breed became recognized by the United Kennel Club on January 1, 1998 and by the Fédération Cynologique Internationale in 2005.",
     stats = Stats(
         group = DogGroup.SPORTING,
         height = 18 to 22,
@@ -65,39 +65,68 @@ private val koreanJindoInfo =  DogInformation(
     )
 )
 
+private val galleryImages
+    get() = listOf(
+        R.drawable.gallery_1,
+        R.drawable.gallery_2,
+        R.drawable.gallery_3,
+        R.drawable.gallery_4,
+        R.drawable.gallery_5
+    ).shuffled()
+
 val puppy1 = Puppy(
     name = "Polo",
     about = "Polo has been in a foster home for nearly 2 yrs now. Her foster Mom tries to capture her in all her funny positions and expressions.",
     dogInformation = americanBulldogInfo,
-    artwork = R.drawable.american_bulldog_puppy
+    artwork = R.drawable.american_bulldog_puppy,
+    days = 500,
+    currentHeight = 14,
+    currentWeight = 20f,
+    galleryImage = galleryImages
 )
 
 val puppy2 = Puppy(
     name = "CoCo",
-    about = "Coco is 2 years old, she is very healthy and cheerful.",
+    about = "Coco is about 2 months old, she is very healthy and cheerful.",
     dogInformation = chihuahuaInfo,
-    artwork = R.drawable.chihuhua_puppy
+    artwork = R.drawable.chihuhua_puppy,
+    days = 65,
+    currentHeight = 4,
+    currentWeight = 1.8f,
+    galleryImage = galleryImages
 )
 
 val puppy3 = Puppy(
     name = "Bruno",
     about = "Bruno is Coco's friend, but he's more mischievous, often running around the house. Enjoyed walking. Currently he is 1 years old",
     dogInformation = chihuahuaInfo,
-    artwork = R.drawable.bruno_chihuahua
+    artwork = R.drawable.bruno_chihuahua,
+    days = 360,
+    currentHeight = 7,
+    currentWeight = 2.0f,
+    galleryImage = galleryImages
 )
 
 val puppy4 = Puppy(
     name = "Lady",
     about = "Lady is very young, about 8 months old. Her fur is very smooth and soft, and everyone wants to hug her when encountered. But she is very picky eats.",
     dogInformation = bichonFriseInfo,
-    artwork = R.drawable.bichon_frise
+    artwork = R.drawable.bichon_frise,
+    days = 220,
+    currentHeight = 6,
+    currentWeight = 1.6f,
+    galleryImage = galleryImages
 )
 
 val puppy5 = Puppy(
     name = "Jonal",
     about = "Jonal is very friendly and does not like noise. He usually sleeps at noon.",
     dogInformation = koreanJindoInfo,
-    artwork = R.drawable.korean_jindo
+    artwork = R.drawable.korean_jindo,
+    days = 100,
+    currentHeight = 10,
+    currentWeight = 7f,
+    galleryImage = galleryImages
 )
 
-val allPuppies = listOf(puppy1, puppy2, puppy3, puppy4, puppy5, puppy1, puppy2, puppy3, puppy4, puppy5)
+val allPuppies = listOf(puppy1, puppy2, puppy3, puppy4, puppy5)

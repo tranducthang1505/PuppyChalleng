@@ -11,4 +11,11 @@
       -->
     <string name="app_name">AndroidDevChallenge</string>
     <string name="app_title">Puppies</string>
+    <string name="stats_height">Height</string>
+    <string name="stats_weight">Weight</string>
+    <string name="stats_litter_size">Litter Size</string>
+    <string name="stats_life_span">Life Span</string>
+    <string name="inches">Inch</string>
+    <string name="kilograms">Kg</string>
+    <string name="gallery">Gallery</string>
 </resources>

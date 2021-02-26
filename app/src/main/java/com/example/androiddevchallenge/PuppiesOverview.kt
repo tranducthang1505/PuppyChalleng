@@ -18,18 +18,21 @@ package com.example.androiddevchallenge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Divider
+import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Pets
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
@@ -58,8 +61,10 @@ fun PuppiesOverview() {
                 contentPadding = innerPadding,
                 content = {
                     items(allPuppies) { item ->
-                        PuppyItem(puppy = item, modifier = Modifier.padding(8.dp))
-                        Divider(thickness = 1.dp)
+                        PuppyItem(
+                            puppy = item,
+                            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+                        )
                     }
                 }
             )
@@ -86,22 +91,35 @@ private fun AppBar() {
 
 @Composable
 fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier) {
-    Row(modifier = modifier.fillMaxWidth()) {
-        Image(
-            painter = painterResource(id = puppy.artwork),
-            contentDescription = "Polo Puppy",
-            modifier = Modifier
-                .size(80.dp)
-                .align(Alignment.CenterVertically),
-            contentScale = ContentScale.Crop
-        )
-        Column(
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .align(Alignment.CenterVertically)
-        ) {
-            Text(text = puppy.name)
-            Text(text = puppy.about, maxLines = 2, overflow = TextOverflow.Ellipsis)
+    Card(modifier = modifier.fillMaxWidth()) {
+        Row {
+            Image(
+                painter = painterResource(id = puppy.artwork),
+                contentDescription = "Puppy Artwork",
+                modifier = Modifier
+                    .size(140.dp)
+                    .align(Alignment.CenterVertically),
+                contentScale = ContentScale.Crop
+            )
+
+            Column(
+                modifier = Modifier
+                    .height(140.dp)
+                    .padding(8.dp)
+            ) {
+                Text(text = puppy.name)
+                Text(text = puppy.about, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Spacer(modifier = Modifier.weight(1f))
+                Row {
+                    Text(text = puppy.dogInformation.kind)
+                    Spacer(modifier = Modifier.weight(1f))
+                    Icon(
+                        imageVector = Icons.Rounded.Favorite,
+                        contentDescription = null,
+                        tint = MaterialTheme.colors.primary
+                    )
+                }
+            }
         }
     }
 }
@@ -109,7 +127,7 @@ fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun PuppyItemPreview() {
-    PuppyItem(puppy = puppy1)
+    PuppyItem(puppy = allPuppies.random())
 }
 
 @Preview(device = Devices.PIXEL_2)

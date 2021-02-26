@@ -23,7 +23,11 @@ data class Puppy(
     val name: String,
     val about: String,
     @DrawableRes val artwork: Int,
-    val dogInformation: DogInformation
+    val dogInformation: DogInformation,
+    val days: Int,
+    val currentHeight: Int,
+    val currentWeight: Float,
+    val galleryImage: List<Int>
 )
 
 data class DogInformation(
