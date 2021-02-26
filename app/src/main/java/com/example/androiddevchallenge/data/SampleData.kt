@@ -23,9 +23,45 @@ private val americanBulldogInfo = DogInformation(
     stats = Stats(
         group = DogGroup.WORKING,
         height = 20 to 26,
-        weight = 34 to 52,
+        weight = 34f to 52f,
         litterSize = 7 to 16,
         lifeSpan = 10 to 15
+    )
+)
+
+private val chihuahuaInfo = DogInformation(
+    kind = "Chihuahua",
+    description = "The Chihuahua (/tʃɪˈwɑːwə, -wɑː, -ˈwaʊ.ə/ (About this soundlisten);[1] Spanish: chihuahueño) is one of the smallest breeds of dog,[2] and is named after the Mexican state of Chihuahua.",
+    stats = Stats(
+        group = DogGroup.COMPANION_DOG,
+        height = 6 to 10,
+        weight = 1.8f to 2.7f,
+        litterSize = 2 to 5,
+        lifeSpan = 12 to 20
+    )
+)
+
+private val bichonFriseInfo = DogInformation(
+    kind = "Bichon Frise",
+    description = "A Bichon Frise (/ˈbiːʃɒn ˈfriːz/ or /ˈbiːʃɒn frɪˈzeɪ/; from French: bichon à poil frisé, French pronunciation: \u200B[biʃɔ̃ fʁize], meaning 'curly haired dog') is a small breed of dog of the bichon type.",
+    stats = Stats(
+        group = DogGroup.COMPANION_DOG,
+        height = 9 to 11,
+        weight = 1.8f to 2.7f,
+        litterSize = 1 to 6,
+        lifeSpan = 12 to 15
+    )
+)
+
+private val koreanJindoInfo =  DogInformation(
+    kind = "Korean Jindo",
+    description = "The Korean Jindo (진돗개) is a breed of hunting dog that originated on Jindo Island in South Korea. Brought to the United States with South Korean immigrants, it is celebrated in its native land for its strong loyalty and bravery. The Jindo breed became recognized by the United Kennel Club on January 1, 1998[1] and by the Fédération Cynologique Internationale in 2005.[2][3]",
+    stats = Stats(
+        group = DogGroup.SPORTING,
+        height = 18 to 22,
+        weight = 15f to 23f,
+        litterSize = 1 to 4,
+        lifeSpan = 15 to 25
     )
 )
 
@@ -36,4 +72,32 @@ val puppy1 = Puppy(
     artwork = R.drawable.american_bulldog_puppy
 )
 
-val allPuppies = List(100) { puppy1 }
+val puppy2 = Puppy(
+    name = "CoCo",
+    about = "Coco is 2 years old, she is very healthy and cheerful.",
+    dogInformation = chihuahuaInfo,
+    artwork = R.drawable.chihuhua_puppy
+)
+
+val puppy3 = Puppy(
+    name = "Bruno",
+    about = "Bruno is Coco's friend, but he's more mischievous, often running around the house. Enjoyed walking. Currently he is 1 years old",
+    dogInformation = chihuahuaInfo,
+    artwork = R.drawable.bruno_chihuahua
+)
+
+val puppy4 = Puppy(
+    name = "Lady",
+    about = "Lady is very young, about 8 months old. Her fur is very smooth and soft, and everyone wants to hug her when encountered. But she is very picky eats.",
+    dogInformation = bichonFriseInfo,
+    artwork = R.drawable.bichon_frise
+)
+
+val puppy5 = Puppy(
+    name = "Jonal",
+    about = "Jonal is very friendly and does not like noise. He usually sleeps at noon.",
+    dogInformation = koreanJindoInfo,
+    artwork = R.drawable.korean_jindo
+)
+
+val allPuppies = listOf(puppy1, puppy2, puppy3, puppy4, puppy5, puppy1, puppy2, puppy3, puppy4, puppy5)

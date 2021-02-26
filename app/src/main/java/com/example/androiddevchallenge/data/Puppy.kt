@@ -35,11 +35,13 @@ data class DogInformation(
 data class Stats(
     val group: DogGroup,
     val height: Pair<Int, Int>, // min-max inches
-    val weight: Pair<Int, Int>, // min-max kilograms
+    val weight: Pair<Float, Float>, // min-max kilograms
     val litterSize: Pair<Int, Int>, // min-max puppies
     val lifeSpan: Pair<Int, Int>, // min-max years
 )
 
 enum class DogGroup(val group: String) {
-    WORKING("Working Dogs")
+    WORKING("Working Dogs"),
+    COMPANION_DOG("Companion Dogs"),
+    SPORTING("Sporting Dogs")
 }
