@@ -15,6 +15,9 @@ An application about Puppy adoption to join the Jetpack Compose Challenge #Week 
 <!--- What are you especially proud of? -->
 This Application is built by using fully Jetpack Compose.
 
+## Reference
+- All images in the app are referenced from Unsplash
+- Some information are referenced from Wikipedia
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
