@@ -115,10 +115,10 @@ fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier, onItemClick: (Puppy) 
                     .height(140.dp)
                     .padding(start = 8.dp, top = 8.dp)
             ) {
-                Text(text = puppy.name, style = MaterialTheme.typography.h5)
+                Text(text = puppy.name, style = MaterialTheme.typography.h6)
                 Text(
                     text = puppy.about, maxLines = 2, overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body2
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Row {
@@ -147,8 +147,7 @@ fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier, onItemClick: (Puppy) 
 @Preview
 @Composable
 fun PuppyItemPreview() {
-    PuppyItem(puppy = allPuppies.random()) {
-    }
+    PuppyItem(puppy = allPuppies.random(), onItemClick = {})
 }
 
 @Preview(device = Devices.PIXEL_2)
