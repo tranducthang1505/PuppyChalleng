@@ -32,7 +32,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Pets
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
@@ -47,7 +46,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.data.Puppy
 import com.example.androiddevchallenge.data.allPuppies
-import com.example.androiddevchallenge.data.puppy1
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
@@ -113,11 +111,8 @@ fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier) {
                 Row {
                     Text(text = puppy.dogInformation.kind)
                     Spacer(modifier = Modifier.weight(1f))
-                    Icon(
-                        imageVector = Icons.Rounded.Favorite,
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.primary
-                    )
+                    val price = String.format("%.1f", puppy.pricePerHour)
+                    Text(text = stringResource(id = R.string.price_per_a_hour, price))
                 }
             }
         }

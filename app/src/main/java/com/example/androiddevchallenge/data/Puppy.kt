@@ -27,7 +27,8 @@ data class Puppy(
     val days: Int,
     val currentHeight: Int,
     val currentWeight: Float,
-    val galleryImage: List<Int>
+    val galleryImage: List<Int>,
+    val pricePerHour: Double
 )
 
 data class DogInformation(

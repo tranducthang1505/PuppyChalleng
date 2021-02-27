@@ -82,7 +82,8 @@ val puppy1 = Puppy(
     days = 500,
     currentHeight = 14,
     currentWeight = 20f,
-    galleryImage = galleryImages
+    galleryImage = galleryImages,
+    pricePerHour = 10.0
 )
 
 val puppy2 = Puppy(
@@ -93,7 +94,8 @@ val puppy2 = Puppy(
     days = 65,
     currentHeight = 4,
     currentWeight = 1.8f,
-    galleryImage = galleryImages
+    galleryImage = galleryImages,
+    pricePerHour = 8.0
 )
 
 val puppy3 = Puppy(
@@ -104,7 +106,8 @@ val puppy3 = Puppy(
     days = 360,
     currentHeight = 7,
     currentWeight = 2.0f,
-    galleryImage = galleryImages
+    galleryImage = galleryImages,
+    pricePerHour = 9.5
 )
 
 val puppy4 = Puppy(
@@ -115,7 +118,8 @@ val puppy4 = Puppy(
     days = 220,
     currentHeight = 6,
     currentWeight = 1.6f,
-    galleryImage = galleryImages
+    galleryImage = galleryImages,
+    pricePerHour = 12.0
 )
 
 val puppy5 = Puppy(
@@ -126,7 +130,8 @@ val puppy5 = Puppy(
     days = 100,
     currentHeight = 10,
     currentWeight = 7f,
-    galleryImage = galleryImages
+    galleryImage = galleryImages,
+    pricePerHour = 15.0
 )
 
 val allPuppies = listOf(puppy1, puppy2, puppy3, puppy4, puppy5)

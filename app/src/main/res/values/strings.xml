@@ -18,4 +18,7 @@
     <string name="inches">Inch</string>
     <string name="kilograms">Kg</string>
     <string name="gallery">Gallery</string>
+    <string name="price">%s$</string>
+    <string name="per_a_hour">Per 1 hour</string>
+    <string name="price_per_a_hour">%s$/h</string>
 </resources>
