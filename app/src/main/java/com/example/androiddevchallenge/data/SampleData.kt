@@ -83,7 +83,12 @@ val puppy1 = Puppy(
     currentHeight = 14,
     currentWeight = 20f,
     galleryImage = galleryImages,
-    pricePerHour = 10.0
+    pricePerHour = 5.0,
+    takeCareHistory = listOf(
+        TakeCareHistory(date = "24 Feb 2021", "8:00" to "16:00"),
+        TakeCareHistory(date = "25 Feb 2021", "8:00" to "16:30"),
+        TakeCareHistory(date = "26 Feb 2021", "8:00" to "20:30"),
+    )
 )
 
 val puppy2 = Puppy(
@@ -95,7 +100,12 @@ val puppy2 = Puppy(
     currentHeight = 4,
     currentWeight = 1.8f,
     galleryImage = galleryImages,
-    pricePerHour = 8.0
+    pricePerHour = 4.5,
+    takeCareHistory = listOf(
+        TakeCareHistory(date = "24 Feb 2021", "8:00" to "10:00"),
+        TakeCareHistory(date = "25 Feb 2021", "8:00" to "10:00"),
+        TakeCareHistory(date = "26 Feb 2021", "8:00" to "10:00"),
+    )
 )
 
 val puppy3 = Puppy(
@@ -107,7 +117,12 @@ val puppy3 = Puppy(
     currentHeight = 7,
     currentWeight = 2.0f,
     galleryImage = galleryImages,
-    pricePerHour = 9.5
+    pricePerHour = 4.0,
+    takeCareHistory = listOf(
+        TakeCareHistory(date = "24 Feb 2021", "6:00" to "10:00"),
+        TakeCareHistory(date = "25 Feb 2021", "6:00" to "14:00"),
+        TakeCareHistory(date = "26 Feb 2021", "6:00" to "14:00"),
+    )
 )
 
 val puppy4 = Puppy(
@@ -119,7 +134,12 @@ val puppy4 = Puppy(
     currentHeight = 6,
     currentWeight = 1.6f,
     galleryImage = galleryImages,
-    pricePerHour = 12.0
+    pricePerHour = 3.0,
+    takeCareHistory = listOf(
+        TakeCareHistory(date = "24 Feb 2021", "8:00" to "12:00"),
+        TakeCareHistory(date = "25 Feb 2021", "8:00" to "12:00"),
+        TakeCareHistory(date = "26 Feb 2021", "8:00" to "12:00"),
+    )
 )
 
 val puppy5 = Puppy(
@@ -131,7 +151,12 @@ val puppy5 = Puppy(
     currentHeight = 10,
     currentWeight = 7f,
     galleryImage = galleryImages,
-    pricePerHour = 15.0
+    pricePerHour = 6.0,
+    takeCareHistory = listOf(
+        TakeCareHistory(date = "24 Feb 2021", "8:00" to "16:00"),
+        TakeCareHistory(date = "25 Feb 2021", "8:00" to "16:00"),
+        TakeCareHistory(date = "26 Feb 2021", "8:00" to "20:00"),
+    )
 )
 
 val allPuppies = listOf(puppy1, puppy2, puppy3, puppy4, puppy5)

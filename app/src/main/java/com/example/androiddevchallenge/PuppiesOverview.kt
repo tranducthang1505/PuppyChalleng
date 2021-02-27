@@ -16,6 +16,7 @@
 package com.example.androiddevchallenge
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,10 +26,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -37,6 +40,7 @@ import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,12 +48,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.data.Puppy
 import com.example.androiddevchallenge.data.allPuppies
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
-fun PuppiesOverview() {
+fun PuppiesOverview(navController: NavHostController) {
     Scaffold(
         topBar = {
             AppBar()
@@ -61,7 +68,10 @@ fun PuppiesOverview() {
                     items(allPuppies) { item ->
                         PuppyItem(
                             puppy = item,
-                            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+                            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
+                            onItemClick = {
+                                navController.navigate("detail/${it.id}")
+                            }
                         )
                     }
                 }
@@ -88,9 +98,9 @@ private fun AppBar() {
 }
 
 @Composable
-fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier) {
+fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier, onItemClick: (Puppy) -> Unit) {
     Card(modifier = modifier.fillMaxWidth()) {
-        Row {
+        Row(Modifier.clickable { onItemClick(puppy) }) {
             Image(
                 painter = painterResource(id = puppy.artwork),
                 contentDescription = "Puppy Artwork",
@@ -103,16 +113,31 @@ fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .height(140.dp)
-                    .padding(8.dp)
+                    .padding(start = 8.dp, top = 8.dp)
             ) {
-                Text(text = puppy.name)
-                Text(text = puppy.about, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Text(text = puppy.name, style = MaterialTheme.typography.h5)
+                Text(
+                    text = puppy.about, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.body1
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 Row {
-                    Text(text = puppy.dogInformation.kind)
+                    Text(
+                        text = puppy.dogInformation.kind,
+                        Modifier.align(Alignment.CenterVertically),
+                        style = MaterialTheme.typography.caption
+                    )
                     Spacer(modifier = Modifier.weight(1f))
                     val price = String.format("%.1f", puppy.pricePerHour)
-                    Text(text = stringResource(id = R.string.price_per_a_hour, price))
+                    Surface(
+                        color = MaterialTheme.colors.primary,
+                        modifier = Modifier.clip(RoundedCornerShape(topStart = 12.dp))
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.price_per_a_hour, price),
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
                 }
             }
         }
@@ -122,13 +147,15 @@ fun PuppyItem(puppy: Puppy, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun PuppyItemPreview() {
-    PuppyItem(puppy = allPuppies.random())
+    PuppyItem(puppy = allPuppies.random()) {
+    }
 }
 
 @Preview(device = Devices.PIXEL_2)
 @Composable
 fun PuppiesOverviewPreview() {
     MyTheme {
-        PuppiesOverview()
+        val navController = rememberNavController()
+        PuppiesOverview(navController)
     }
 }

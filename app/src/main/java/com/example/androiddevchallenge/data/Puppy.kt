@@ -28,7 +28,13 @@ data class Puppy(
     val currentHeight: Int,
     val currentWeight: Float,
     val galleryImage: List<Int>,
-    val pricePerHour: Double
+    val pricePerHour: Double,
+    val takeCareHistory: List<TakeCareHistory>
+)
+
+data class TakeCareHistory(
+    val date: String,
+    val formTo: Pair<String, String>
 )
 
 data class DogInformation(

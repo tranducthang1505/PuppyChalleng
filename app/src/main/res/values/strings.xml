@@ -21,4 +21,5 @@
     <string name="price">%s$</string>
     <string name="per_a_hour">Per 1 hour</string>
     <string name="price_per_a_hour">%s$/h</string>
+    <string name="take_care_history">Take care histories</string>
 </resources>

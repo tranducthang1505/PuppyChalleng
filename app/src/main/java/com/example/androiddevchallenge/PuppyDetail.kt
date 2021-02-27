@@ -15,113 +15,221 @@
  */
 package com.example.androiddevchallenge
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ChildCare
-import androidx.compose.material.icons.rounded.Height
-import androidx.compose.material.icons.rounded.HourglassEmpty
-import androidx.compose.material.icons.rounded.TrendingUp
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ChildCare
+import androidx.compose.material.icons.filled.Height
+import androidx.compose.material.icons.filled.HourglassEmpty
+import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.data.Puppy
 import com.example.androiddevchallenge.data.Stats
+import com.example.androiddevchallenge.data.TakeCareHistory
 import com.example.androiddevchallenge.data.allPuppies
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.utils.isScrollingUp
 
 @Composable
-fun PuppyDetail(puppy: Puppy) {
-    Scaffold(
-        topBar = {
-            TopBarDetail(puppy = puppy)
-        },
-        content = { innerPadding ->
+fun PuppyDetail(puppy: Puppy, navController: NavHostController) {
+    val lazyListState: LazyListState = rememberLazyListState()
+    Box {
+        Scaffold {
             ContentDetail(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .padding(16.dp),
-                puppy = puppy
+                puppy = puppy,
+                lazyListState = lazyListState
             )
         }
-    )
+        TopBarDetail(
+            puppy = puppy,
+            navController = navController,
+            extended = lazyListState.isScrollingUp()
+        )
+    }
 }
 
 @Composable
 private fun ContentDetail(
     modifier: Modifier = Modifier,
-    puppy: Puppy
+    puppy: Puppy,
+    lazyListState: LazyListState
 ) {
-    val scrollState = rememberScrollState()
-    Column(
-        modifier = modifier.verticalScroll(scrollState)
-    ) {
-        Row {
-            Text(text = puppy.name, style = MaterialTheme.typography.h4)
-            Spacer(modifier = Modifier.weight(1f))
-            Price(puppy.pricePerHour)
+    LazyColumn(modifier = modifier, state = lazyListState) {
+        item {
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                painter = painterResource(id = puppy.artwork),
+                contentDescription = "Puppy ArtWork",
+                contentScale = ContentScale.Crop
+            )
         }
-        Text(modifier = Modifier.padding(top = 16.dp), text = puppy.about)
-        PuppyInfo(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            puppy = puppy
-        )
-        SectionHeader(
-            headerText = stringResource(R.string.gallery),
-            modifier = Modifier.padding(top = 16.dp)
-        )
-        LazyRow(modifier = Modifier.padding(top = 16.dp)) {
-            items(puppy.galleryImage) { image ->
-                Image(
+        item {
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp)
+            ) {
+                Text(text = puppy.name, style = MaterialTheme.typography.h4)
+                Spacer(modifier = Modifier.weight(1f))
+                Price(puppy.pricePerHour)
+            }
+        }
+        item {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(
                     modifier = Modifier
-                        .padding(end = 8.dp)
-                        .clip(MaterialTheme.shapes.medium)
-                        .width(100.dp)
-                        .height(140.dp),
-                    painter = painterResource(id = image),
-                    contentDescription = "Gallery Image",
-                    contentScale = ContentScale.Crop,
+                        .padding(top = 16.dp)
+                        .padding(horizontal = 16.dp),
+                    text = puppy.about
                 )
             }
         }
+        item {
+            PuppyInfo(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 16.dp),
+                puppy = puppy
+            )
+        }
+        item {
+            SectionHeader(
+                headerText = stringResource(R.string.take_care_history),
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 16.dp)
+            )
+        }
 
-        SectionHeader(
-            headerText = puppy.dogInformation.kind + " Breed",
-            modifier = Modifier.padding(top = 16.dp)
-        )
-        Text(modifier = Modifier.padding(top = 16.dp), text = puppy.dogInformation.description)
-        StatsLayout(
-            modifier = Modifier.padding(vertical = 16.dp), stats = puppy.dogInformation.stats
-        )
-        Text(modifier = Modifier.padding(top = 8.dp), text = "From Wikipedia")
+        item {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                for (item in puppy.takeCareHistory) {
+                    TakeCareHistoryLayout(
+                        item,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .padding(horizontal = 16.dp)
+                    )
+                }
+            }
+        }
+        item {
+            SectionHeader(
+                headerText = stringResource(R.string.gallery),
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 16.dp)
+            )
+        }
+
+        item {
+            LazyRow(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 16.dp)
+            ) {
+                items(puppy.galleryImage) { image ->
+                    Image(
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .clip(MaterialTheme.shapes.medium)
+                            .width(100.dp)
+                            .height(140.dp),
+                        painter = painterResource(id = image),
+                        contentDescription = "Gallery Image",
+                        contentScale = ContentScale.Crop,
+                    )
+                }
+            }
+        }
+
+        item {
+            SectionHeader(
+                headerText = puppy.dogInformation.kind + " Breed",
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 16.dp)
+            )
+        }
+
+        item {
+            Text(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 16.dp),
+                text = puppy.dogInformation.description
+            )
+        }
+        item {
+            StatsLayout(
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .padding(horizontal = 16.dp),
+                stats = puppy.dogInformation.stats
+            )
+        }
+        item {
+            Text(
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .padding(horizontal = 16.dp),
+                text = "From Wikipedia"
+            )
+        }
+    }
+}
+
+@Composable
+fun TakeCareHistoryLayout(item: TakeCareHistory, modifier: Modifier = Modifier) {
+    Row(modifier = modifier) {
+        Text(text = item.date)
+        Spacer(modifier = Modifier.weight(1f))
+        Text(text = "${item.formTo.first} → ${item.formTo.second}")
     }
 }
 
@@ -178,16 +286,33 @@ fun SectionHeader(headerText: String, modifier: Modifier = Modifier) {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-private fun TopBarDetail(puppy: Puppy, modifier: Modifier = Modifier) {
-    Box(modifier = modifier.height(200.dp)) {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = puppy.artwork),
-            contentDescription = "Puppy ArtWork",
-            contentScale = ContentScale.Crop
-        )
-    }
+private fun TopBarDetail(
+    puppy: Puppy,
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    extended: Boolean
+) {
+    TopAppBar(
+        modifier = modifier,
+        navigationIcon = {
+            Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(horizontal = 12.dp)
+                    .clickable { navController.navigateUp() }
+            )
+        },
+        title = {
+            AnimatedVisibility(!extended) {
+                Text(text = puppy.name)
+            }
+        },
+        backgroundColor = if (extended) Color.Transparent else MaterialTheme.colors.primarySurface,
+        elevation = if (extended) 0.dp else 4.dp
+    )
 }
 
 @Composable
@@ -197,14 +322,14 @@ fun StatsLayout(stats: Stats, modifier: Modifier = Modifier) {
             StatsItem(
                 modifier = Modifier.weight(1f),
                 title = stringResource(R.string.stats_height),
-                icon = Icons.Rounded.Height,
-                info = "${stats.height.first}inch - ${stats.height.second} (Inches)",
+                icon = Icons.Filled.Height,
+                info = "${stats.height.first} - ${stats.height.second} (Inches)",
             )
             StatsItem(
                 modifier = Modifier.weight(1f),
                 title = stringResource(R.string.stats_weight),
-                icon = Icons.Rounded.TrendingUp,
-                info = "${stats.weight.first} - ${stats.weight.second} (Kilograms)"
+                icon = Icons.Filled.TrendingUp,
+                info = "${stats.weight.first} - ${stats.weight.second} (Kg)"
             )
         }
         Row(
@@ -214,14 +339,14 @@ fun StatsLayout(stats: Stats, modifier: Modifier = Modifier) {
         ) {
             StatsItem(
                 modifier = Modifier.weight(1f),
-                icon = Icons.Rounded.ChildCare,
+                icon = Icons.Filled.ChildCare,
                 title = stringResource(R.string.stats_litter_size),
                 info = "${stats.litterSize.first} - ${stats.litterSize.second} (Children)"
             )
             StatsItem(
                 modifier = Modifier.weight(1f),
                 title = stringResource(R.string.stats_life_span),
-                icon = Icons.Rounded.HourglassEmpty,
+                icon = Icons.Filled.HourglassEmpty,
                 info = "${stats.lifeSpan.first} - ${stats.lifeSpan.second} (Years)"
             )
         }
@@ -236,7 +361,8 @@ fun StatsItem(icon: ImageVector, title: String, info: String, modifier: Modifier
                 .size(36.dp),
             contentDescription = info,
             imageVector = icon,
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.FillWidth,
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface)
         )
         Text(text = title)
         Text(text = info)
@@ -259,6 +385,7 @@ fun StatsLayoutPreview() {
 @Composable
 fun PuppyDetailPreview() {
     MyTheme {
-        PuppyDetail(puppy = allPuppies.random())
+        val navController = rememberNavController()
+        PuppyDetail(puppy = allPuppies.random(), navController)
     }
 }
